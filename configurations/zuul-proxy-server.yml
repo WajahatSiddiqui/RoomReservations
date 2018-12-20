@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    include: 'default'
+
+info:
+  component: zuul proxy server
+
+server:
+  address: localhost
+  port: 8762

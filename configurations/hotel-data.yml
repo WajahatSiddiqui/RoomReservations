@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    include: 'default'
+
+info:
+  component: hotel data
+
+server:
+  address: localhost
+  port: 8387
