@@ -1,9 +1,15 @@
 server:
-  port: 9091
+  port: 7777
 
 eureka:
   client:
+    registerWithEureka: false
+    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://localhost:9091/eureka
-    register-with-eureka: false
-    fetch-registry: false
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+  instance:
+    hostname: localhost
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
