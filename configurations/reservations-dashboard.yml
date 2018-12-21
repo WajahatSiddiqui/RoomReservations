@@ -6,5 +6,4 @@ info:
   component: reservation dashboard
 
 server:
-  address: localhost
   port: 8386

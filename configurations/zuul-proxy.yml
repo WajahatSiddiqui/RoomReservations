@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    include: 'default'
+
+info:
+  component: zuul proxy server
+
+server:
+  port: 8762
+
+zuul:
+  host:
+    socket-timeout-millis: 30000
+  routes:
+    Reservations:
+      path: /reservations/**
+      serviceId: reservation
