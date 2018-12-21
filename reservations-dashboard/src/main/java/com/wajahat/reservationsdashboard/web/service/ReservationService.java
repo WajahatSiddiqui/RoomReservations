@@ -2,6 +2,7 @@ package com.wajahat.reservationsdashboard.web.service;
 
 import com.wajahat.reservationsdashboard.web.domain.RoomReservation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -10,8 +11,7 @@ import java.util.List;
  * Created by wajahat
  */
 
-@FeignClient(name = "reservation")
+@FeignClient(name = "reservation", fallback = ReservationServiceFallback.class)
 public interface ReservationService {
-
     List<RoomReservation> getRoomReservations(String dateString);
 }
