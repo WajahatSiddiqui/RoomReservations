@@ -1,7 +1,12 @@
 server:
   port: 8385
 
+info:
+  component: reservation
+
 spring:
+  profiles:
+    include: 'default'
   jpa:
     hibernate:
       ddl-auto: none
