@@ -1,6 +1,8 @@
-package com.wajahat.springfield.data.entity;
+package com.wajahat.springfield.data.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +18,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ROOM")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

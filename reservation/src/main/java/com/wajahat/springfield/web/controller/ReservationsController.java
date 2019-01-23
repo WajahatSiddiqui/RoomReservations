@@ -23,7 +23,7 @@ public class ReservationsController {
     private ReservationService reservationService;
 
     @RequestMapping(method= RequestMethod.GET)
-    public String getReservations(@RequestParam(value="date", required=false)String dateString, Model model){
+    public String getReservations(@RequestParam(value="date", required=false) String dateString, Model model){
         List<RoomReservation> roomReservationList = this.reservationService.getRoomReservations(dateString);
         model.addAttribute("roomReservations", roomReservationList);
         return "reservations";

@@ -1,6 +1,6 @@
 package com.wajahat.springfield.data.repository;
 
-import com.wajahat.springfield.data.entity.Room;
+import com.wajahat.springfield.data.domain.Room;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

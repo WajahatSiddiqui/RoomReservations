@@ -2,7 +2,8 @@ package com.wajahat.springfield.business.service;
 
 import com.wajahat.springfield.business.ReservationService;
 import com.wajahat.springfield.business.domain.RoomReservation;
-import com.wajahat.springfield.data.entity.Room;
+import com.wajahat.springfield.data.domain.Guest;
+import com.wajahat.springfield.data.domain.Room;
 import com.wajahat.springfield.data.repository.GuestRepository;
 import com.wajahat.springfield.data.repository.ReservationRepository;
 import com.wajahat.springfield.data.repository.RoomRepository;
@@ -17,6 +18,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Class Service Class to manage reservations
@@ -40,35 +43,28 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<Guest> getAllGuest() {
+        return StreamSupport.stream(guestRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<RoomReservation> getRoomReservations(String dateString) {
-        // Get all the available rooms
-        Iterable<Room> rooms = roomRepository.findAll();
-
         java.sql.Date date = new java.sql.Date(createDate(dateString).getTime());
-        Map<Long, RoomReservation> reservationMap = new HashMap<>();
-
-        // Fill the bag with room details
-        rooms.forEach(room -> reservationMap.put(room.getId(), RoomReservation.builder()
-                .roomId(room.getId())
-                .roomName(room.getName())
-                .roomNumber(room.getNumber())
-                .date(date)
-                .build()));
-
-        // Find the reservation by date and fill the bag with guest details
-        reservationRepository.findByDate(date).ifPresent(reservations -> reservations.forEach(r-> {
-            RoomReservation bag = reservationMap.get(r.getRoomId());
-            if (bag != null) {
-                guestRepository.findById(r.getGuestId()).ifPresent(guest -> {
-                    bag.setGuestId(r.getGuestId());
-                    bag.setFirstName(guest.getFirstName());
-                    bag.setLastName(guest.getLastName());
-                });
-            }
-        }));
-
-        // return all the reservations
-        return new ArrayList<>(reservationMap.values());
+        List<RoomReservation> roomReservations = new ArrayList<>();
+        reservationRepository.findByDate(date).ifPresent(
+                r-> r.forEach(reservation -> {
+                    roomReservations.add(RoomReservation.builder()
+                            .roomId(reservation.getRoom().getId())
+                            .guestId(reservation.getGuest().getId())
+                            .roomName(reservation.getRoom().getName())
+                            .roomNumber(reservation.getRoom().getNumber())
+                            .firstName(reservation.getGuest().getFirstName())
+                            .lastName(reservation.getGuest().getLastName())
+                            .date(date).build());
+                })
+        );
+        return roomReservations;
     }
 
     private Date createDate(String dateString) {

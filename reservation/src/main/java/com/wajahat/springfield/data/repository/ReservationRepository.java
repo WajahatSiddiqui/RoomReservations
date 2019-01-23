@@ -1,6 +1,6 @@
 package com.wajahat.springfield.data.repository;
 
-import com.wajahat.springfield.data.entity.Reservation;
+import com.wajahat.springfield.data.domain.Reservation;
 import org.springframework.data.repository.CrudRepository;
 
 import java.sql.Date;

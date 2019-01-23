@@ -2,6 +2,7 @@ package com.wajahat.springfield.web.service;
 
 import com.wajahat.springfield.business.ReservationService;
 import com.wajahat.springfield.business.domain.RoomReservation;
+import com.wajahat.springfield.data.domain.Guest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,13 +22,13 @@ public class ReservationServiceController {
     @Autowired
     private ReservationService reservationService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/reservations/{date}")
-    public List<RoomReservation> getAllReservation(@PathVariable(value = "date  ", required = false) String dateString) {
-        return reservationService.getRoomReservations(dateString);
+    @RequestMapping(method = RequestMethod.GET, value = "/guests")
+    public List<Guest> findAllGuest() {
+        return reservationService.getAllGuest();
     }
 
-    @GetMapping("/hello")
-        public String hello() {
-        return "hello";
+    @RequestMapping(method = RequestMethod.GET, value = "/reservations/{date}")
+    public List<RoomReservation> getAllReservation(@PathVariable(value = "date", required = false) String dateString) {
+        return reservationService.getRoomReservations(dateString);
     }
 }

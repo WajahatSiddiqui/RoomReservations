@@ -1,7 +1,7 @@
 package com.wajahat.springfield.business;
 
 import com.wajahat.springfield.business.domain.RoomReservation;
-import com.wajahat.springfield.data.entity.Reservation;
+import com.wajahat.springfield.data.domain.Guest;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import java.util.List;
  * Created by wajahat
  */
 public interface ReservationService {
+
+    List<Guest> getAllGuest();
 
     List<RoomReservation> getRoomReservations(String dateString);
 }
